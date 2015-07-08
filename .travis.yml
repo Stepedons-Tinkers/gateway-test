@@ -1,5 +1,8 @@
 language: node_js
 
+env:
+  global:
+    - DOCKER_STORAGE_DRIVER=aufs
 addons:
   hosts:
     - rabbitmq
@@ -17,4 +20,4 @@ before_script:
   - ./scripts/migrate.sh
 
 script:
-  - ./run 'docker build -t test . && docker run -d -p 3333:3333 --name server test && docker exec -it server npm test"
+  - ./run 'docker build -t test . && docker images && docker run -d -p 3333:3333 --name server test && docker ps && docker exec -it server npm test'
