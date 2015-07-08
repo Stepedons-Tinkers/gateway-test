@@ -7,7 +7,7 @@ var fs       = require( 'fs' );
 
 fs.writeFileSync( './node.pid', process.pid, 'utf-8' );
 
-console.log( 'Go now' );
+console.log( 'Go now Stepedons' );
 wascally
 	.configure( {
 		'connection' : {
