@@ -1,0 +1,20 @@
+language: node_js
+
+addons:
+  hosts:
+    - rabbitmq
+    - mysql
+
+node_js:
+  - "0.12.4"
+
+before_install:
+  - curl -sLo - http://j.mp/install-travis-docker | sh -xe
+
+before_script:
+  - mysql -e 'create database development;'
+  - mysql -e "update mysql.user set Password = PASSWORD( 'password' ) where User = 'root'; flush privileges;"
+  - ./scripts/migrate.sh
+
+script:
+  - ./run 'docker build -t test . && docker run -d -p 3333:3333 --name server test && docker exec -it server npm test"
